@@ -5,6 +5,7 @@ import {
   Text,
   Button,
   StyleSheet,
+  AsyncStorage
 } from 'react-native'
 
 import commit from './registerAccount'
@@ -12,18 +13,6 @@ import commit from './registerAccount'
 export default class Register extends React.Component{
   state={
     message: ""
-  }
-  async onPressButton(){
-    const token = await commit(
-      this.state.email,
-      this.state.username,
-      this.state.password
-    )
-    if (token.indexOf('token') == -1){
-      this.setState({message: token})
-    } else{
-      this.props.navigation.navigate('Main')
-    }
   }
   render(){
     return(
@@ -51,6 +40,19 @@ export default class Register extends React.Component{
         <Text onPress={()=>this.props.navigation.navigate('Login')}>Login</Text>
       </View>
     )
+  }
+  async onPressButton(){
+    const token = await commit(
+      this.state.email,
+      this.state.username,
+      this.state.password
+    )
+    if (token.indexOf('token') == -1){
+      this.setState({message: token})
+    } else{
+      await AsyncStorage.setItem('token',token)
+      this.props.navigation.navigate('Main')
+    }
   }
 }
 

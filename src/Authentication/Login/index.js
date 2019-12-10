@@ -5,6 +5,7 @@ import {
   Button,
   StyleSheet,
   Text,
+  AsyncStorage
 } from 'react-native'
 
 import commit from './loginAccount'
@@ -50,6 +51,7 @@ export default class Login extends React.Component{
       if (token.indexOf('token') == -1){
         this.setState({message: token})
       } else{
+        await AsyncStorage.setItem('token',token)
         this.props.navigation.navigate('Main')
       }
     })

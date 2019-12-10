@@ -3,11 +3,12 @@ import {
   View,
   Text,
   StyleSheet,
+  AsyncStorage
 } from 'react-native'
 
 export default class Loading extends React.Component{
   componentDidMount(){
-    this.props.navigation.navigate('Authentication')
+    this.authentication()
   }
   render() {
     return (
@@ -15,6 +16,14 @@ export default class Loading extends React.Component{
         <Text>Loading</Text>
       </View>
     );
+  }
+  async authentication(){
+    token = await AsyncStorage.getItem('token')
+    if (token){
+      this.props.navigation.navigate('Main')
+    } else {
+      this.props.navigation.navigate('Authentication');
+    }
   }
 }
 
