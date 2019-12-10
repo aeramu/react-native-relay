@@ -9,27 +9,28 @@
 /*::
 import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type Question_question$ref: FragmentReference;
-declare export opaque type Question_question$fragmentType: Question_question$ref;
-export type Question_question = {|
-  +id: string,
+declare export opaque type QuestionDetail_question$ref: FragmentReference;
+declare export opaque type QuestionDetail_question$fragmentType: QuestionDetail_question$ref;
+export type QuestionDetail_question = {|
   +title: string,
+  +body: string,
   +author: {|
-    +username: string
+    +id: string,
+    +username: string,
   |},
-  +$refType: Question_question$ref,
+  +$refType: QuestionDetail_question$ref,
 |};
-export type Question_question$data = Question_question;
-export type Question_question$key = {
-  +$data?: Question_question$data,
-  +$fragmentRefs: Question_question$ref,
+export type QuestionDetail_question$data = QuestionDetail_question;
+export type QuestionDetail_question$key = {
+  +$data?: QuestionDetail_question$data,
+  +$fragmentRefs: QuestionDetail_question$ref,
 };
 */
 
 
 const node/*: ReaderFragment*/ = {
   "kind": "Fragment",
-  "name": "Question_question",
+  "name": "QuestionDetail_question",
   "type": "Question",
   "metadata": null,
   "argumentDefinitions": [],
@@ -37,14 +38,14 @@ const node/*: ReaderFragment*/ = {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "id",
+      "name": "title",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "title",
+      "name": "body",
       "args": null,
       "storageKey": null
     },
@@ -60,6 +61,13 @@ const node/*: ReaderFragment*/ = {
         {
           "kind": "ScalarField",
           "alias": null,
+          "name": "id",
+          "args": null,
+          "storageKey": null
+        },
+        {
+          "kind": "ScalarField",
+          "alias": null,
           "name": "username",
           "args": null,
           "storageKey": null
@@ -69,5 +77,5 @@ const node/*: ReaderFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '635181093171be850ece8fd5f490f00f';
+(node/*: any*/).hash = '8d7aa8484cb71693fd6a2e7362ad0f66';
 module.exports = node;

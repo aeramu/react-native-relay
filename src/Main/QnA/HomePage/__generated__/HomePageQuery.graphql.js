@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 28e7bd736849063c24b8615c0602865c
+ * @relayHash 31425505ffd4eabfc8d86d327665e753
  */
 
 /* eslint-disable */
@@ -10,29 +10,29 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type Question_question$ref = any;
-export type QuestionListQueryVariables = {||};
-export type QuestionListQueryResponse = {|
+export type HomePageQueryVariables = {||};
+export type HomePageQueryResponse = {|
   +questionList: $ReadOnlyArray<?{|
-    +id: string,
-    +$fragmentRefs: Question_question$ref,
+    +$fragmentRefs: Question_question$ref
   |}>
 |};
-export type QuestionListQuery = {|
-  variables: QuestionListQueryVariables,
-  response: QuestionListQueryResponse,
+export type HomePageQuery = {|
+  variables: HomePageQueryVariables,
+  response: HomePageQueryResponse,
 |};
 */
 
 
 /*
-query QuestionListQuery {
+query HomePageQuery {
   questionList {
-    id
     ...Question_question
+    id
   }
 }
 
 fragment Question_question on Question {
+  id
   title
   author {
     username
@@ -53,7 +53,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "QuestionListQuery",
+    "name": "HomePageQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": [],
@@ -67,7 +67,6 @@ return {
         "concreteType": "Question",
         "plural": true,
         "selections": [
-          (v0/*: any*/),
           {
             "kind": "FragmentSpread",
             "name": "Question_question",
@@ -79,7 +78,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "QuestionListQuery",
+    "name": "HomePageQuery",
     "argumentDefinitions": [],
     "selections": [
       {
@@ -124,13 +123,13 @@ return {
   },
   "params": {
     "operationKind": "query",
-    "name": "QuestionListQuery",
+    "name": "HomePageQuery",
     "id": null,
-    "text": "query QuestionListQuery {\n  questionList {\n    id\n    ...Question_question\n  }\n}\n\nfragment Question_question on Question {\n  title\n  author {\n    username\n    id\n  }\n}\n",
+    "text": "query HomePageQuery {\n  questionList {\n    ...Question_question\n    id\n  }\n}\n\nfragment Question_question on Question {\n  id\n  title\n  author {\n    username\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ce3a66cd4ed76b1e2cb9afa251f49250';
+(node/*: any*/).hash = '77cc39d87819876f73f41c692a039c70';
 module.exports = node;

@@ -5,16 +5,39 @@ import {
   StyleSheet,
   ScrollView
 } from 'react-native';
+import {graphql, QueryRenderer} from 'react-relay'
+
 import QuestionList from './Component/QuestionList'
 import AskQuestion from './Component/AskQuestion'
 
 export default class HomePage extends Component {
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <AskQuestion navigation={this.props.navigation}/>
-        <QuestionList navigation={this.props.navigation}/>
-      </ScrollView>
+      <QueryRenderer
+        environment={global.env}
+        query={graphql`
+          query HomePageQuery {
+            questionList{
+              ...Question_question
+            }
+          }
+        `}
+        variables={{}}
+        render={({error, props}) => {
+          if (error) {
+            return <Text>Error!</Text>;
+          }
+          if (!props) {
+            return <Text>Loading...</Text>;
+          }
+          return (
+            <ScrollView style={styles.container}>
+              <AskQuestion navigation={this.props.navigation}/>
+              <QuestionList questionList={props.questionList} navigation={this.props.navigation}/>
+            </ScrollView>
+          );
+        }}
+      />
     );
   }
 }

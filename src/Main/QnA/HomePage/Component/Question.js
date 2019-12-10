@@ -17,7 +17,7 @@ class Question extends Component {
   }
 
   onPress(){
-    this.props.navigation.navigate('QuestionPage')
+    this.props.navigation.navigate('QuestionPage',{id: this.props.question.id})
   }
 }
 
@@ -27,6 +27,7 @@ export default createFragmentContainer(
     question: graphql`
       # As a convention, we name the fragment as '<ComponentFileName>_<propName>'
       fragment Question_question on Question {
+        id
         title
         author{
           username
