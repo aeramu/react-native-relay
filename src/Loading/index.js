@@ -20,6 +20,7 @@ export default class Loading extends React.Component{
   async authentication(){
     token = await AsyncStorage.getItem('token')
     if (token){
+      global.token = token
       this.props.navigation.navigate('Main')
     } else {
       this.props.navigation.navigate('Authentication');

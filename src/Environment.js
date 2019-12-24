@@ -6,6 +6,7 @@ const fetchQuery = async (operation, variables, cacheConfig, uploadables) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      'token': global.token,
     }, // Add authentication and other headers here
     body: JSON.stringify({
       query: operation.text, // GraphQL text from input

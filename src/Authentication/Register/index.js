@@ -50,6 +50,7 @@ export default class Register extends React.Component{
     if (token.indexOf('token') == -1){
       this.setState({message: token})
     } else{
+      global.token = token
       await AsyncStorage.setItem('token',token)
       this.props.navigation.navigate('Main')
     }

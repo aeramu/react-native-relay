@@ -3,26 +3,39 @@ schema{
   mutation: Mutation
 }
 
-type Query{
-  account(id: ID!): Account
-  question(id: ID!): Question
-  questionList: [Question]!
-}
-
-type Mutation{
-  registerAccount(email: String!, username: String!, password: String!): String!
-  loginAccount(email: String = "", username: String = "", password: String!): String!
-  askQuestion(title: String!, body: String!): Question!
-  answerQuestion(questionID: ID!, body: String!): Answer!
-}
-
-type Account{
+type Account {
   id: ID!
   email: String!
   username: String!
 }
 
-type Question{
+type Answer {
+  id: ID!
+  body: String!
+  author: Account!
+}
+
+type Mutation {
+  registerAccount(email: String!, username: String!, password: String!): String!
+  loginAccount(email: String = "", username: String = "", password: String!): String!
+  answerQuestion(questionID: ID!, body: String!): Answer!
+  askQuestion(title: String!, body: String!): Question!
+}
+
+type PageInfo {
+  startCursor: ID!
+  endCursor: ID!
+  hasNextPage: Boolean!
+}
+
+type Query {
+  me: Account
+  account(id: ID!): Account
+  question(id: ID!): Question
+  questionList(first: Int = 30, after: ID): QuestionConnection!
+}
+
+type Question {
   id: ID!
   title: String!
   body: String!
@@ -30,8 +43,12 @@ type Question{
   author: Account!
 }
 
-type Answer{
-  id: ID!
-  body: String!
-  author: Account!
+type QuestionConnection {
+  edges: [QuestionEdge]!
+  pageInfo: PageInfo!
+}
+
+type QuestionEdge {
+  cursor: ID!
+  node: Question!
 }
