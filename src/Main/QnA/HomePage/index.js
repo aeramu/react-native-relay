@@ -17,9 +17,7 @@ export default class HomePage extends Component {
         environment={global.env}
         query={graphql`
           query HomePageQuery {
-            questionList{
-              ...Question_question
-            }
+            ...QuestionList_questionList
           }
         `}
         variables={{}}
@@ -33,7 +31,7 @@ export default class HomePage extends Component {
           return (
             <ScrollView style={styles.container}>
               <AskQuestion navigation={this.props.navigation}/>
-              <QuestionList questionList={props.questionList} navigation={this.props.navigation}/>
+              <QuestionList questionList={props} navigation={this.props.navigation}/>
             </ScrollView>
           );
         }}

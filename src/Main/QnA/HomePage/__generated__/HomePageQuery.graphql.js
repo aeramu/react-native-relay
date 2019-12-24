@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 31425505ffd4eabfc8d86d327665e753
+ * @relayHash 5b4bd1d9a8b6fb1c240f9f2d2a0894dc
  */
 
 /* eslint-disable */
@@ -9,12 +9,10 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type Question_question$ref = any;
+type QuestionList_questionList$ref = any;
 export type HomePageQueryVariables = {||};
 export type HomePageQueryResponse = {|
-  +questionList: $ReadOnlyArray<?{|
-    +$fragmentRefs: Question_question$ref
-  |}>
+  +$fragmentRefs: QuestionList_questionList$ref
 |};
 export type HomePageQuery = {|
   variables: HomePageQueryVariables,
@@ -25,9 +23,17 @@ export type HomePageQuery = {|
 
 /*
 query HomePageQuery {
-  questionList {
-    ...Question_question
-    id
+  ...QuestionList_questionList
+}
+
+fragment QuestionList_questionList on Query {
+  questionList(first: 5) {
+    edges {
+      node {
+        ...Question_question
+        id
+      }
+    }
   }
 }
 
@@ -59,20 +65,9 @@ return {
     "argumentDefinitions": [],
     "selections": [
       {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "questionList",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "Question",
-        "plural": true,
-        "selections": [
-          {
-            "kind": "FragmentSpread",
-            "name": "Question_question",
-            "args": null
-          }
-        ]
+        "kind": "FragmentSpread",
+        "name": "QuestionList_questionList",
+        "args": null
       }
     ]
   },
@@ -85,36 +80,64 @@ return {
         "kind": "LinkedField",
         "alias": null,
         "name": "questionList",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "Question",
-        "plural": true,
-        "selections": [
-          (v0/*: any*/),
+        "storageKey": "questionList(first:5)",
+        "args": [
           {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "title",
-            "args": null,
-            "storageKey": null
-          },
+            "kind": "Literal",
+            "name": "first",
+            "value": 5
+          }
+        ],
+        "concreteType": "QuestionConnection",
+        "plural": false,
+        "selections": [
           {
             "kind": "LinkedField",
             "alias": null,
-            "name": "author",
+            "name": "edges",
             "storageKey": null,
             "args": null,
-            "concreteType": "Account",
-            "plural": false,
+            "concreteType": "QuestionEdge",
+            "plural": true,
             "selections": [
               {
-                "kind": "ScalarField",
+                "kind": "LinkedField",
                 "alias": null,
-                "name": "username",
+                "name": "node",
+                "storageKey": null,
                 "args": null,
-                "storageKey": null
-              },
-              (v0/*: any*/)
+                "concreteType": "Question",
+                "plural": false,
+                "selections": [
+                  (v0/*: any*/),
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "title",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "author",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Account",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "username",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      (v0/*: any*/)
+                    ]
+                  }
+                ]
+              }
             ]
           }
         ]
@@ -125,11 +148,11 @@ return {
     "operationKind": "query",
     "name": "HomePageQuery",
     "id": null,
-    "text": "query HomePageQuery {\n  questionList {\n    ...Question_question\n    id\n  }\n}\n\nfragment Question_question on Question {\n  id\n  title\n  author {\n    username\n    id\n  }\n}\n",
+    "text": "query HomePageQuery {\n  ...QuestionList_questionList\n}\n\nfragment QuestionList_questionList on Query {\n  questionList(first: 5) {\n    edges {\n      node {\n        ...Question_question\n        id\n      }\n    }\n  }\n}\n\nfragment Question_question on Question {\n  id\n  title\n  author {\n    username\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '77cc39d87819876f73f41c692a039c70';
+(node/*: any*/).hash = 'a0ed56e2ddaf766ddf61575d3c282e97';
 module.exports = node;

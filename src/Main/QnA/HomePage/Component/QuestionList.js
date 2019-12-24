@@ -8,18 +8,35 @@ import {
 import {graphql, createFragmentContainer} from 'react-relay'
 import Question from './Question'
 
-export default class QuestionList extends Component {
+class QuestionList extends Component {
   render() {
     return (
       <View style={styles.container}>
         <FlatList
-          data={this.props.questionList}
-          renderItem={({ item }) => <Question question={item} navigation={this.props.navigation}/>}
+          data={this.props.questionList.questionList.edges}
+          renderItem={({ item }) => <Question question={item.node} navigation={this.props.navigation}/>}
         />
       </View>
     )
   }
 }
+
+export default createFragmentContainer(
+  QuestionList,
+  {
+    questionList: graphql`
+      fragment QuestionList_questionList on Query{
+        questionList(first:5){
+          edges{
+            node{
+              ...Question_question
+            }
+          }
+        }
+      }
+    `
+  }
+)
 
 const styles = StyleSheet.create({
   container: {
