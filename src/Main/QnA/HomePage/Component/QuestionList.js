@@ -15,6 +15,8 @@ class QuestionList extends Component {
         <FlatList
           data={this.props.questionList.questionList.edges}
           renderItem={({ item }) => <Question question={item.node} navigation={this.props.navigation}/>}
+          onRefresh={()=>console.log("refresh")}
+          refreshing={false}
         />
       </View>
     )

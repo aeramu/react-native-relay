@@ -34,7 +34,6 @@ export default class AskQuestionForm extends Component {
       this.state.title,
       this.state.body
     )
-    console.log(token)
     this.props.navigation.navigate('HomePage')
   }
 }

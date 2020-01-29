@@ -1,8 +1,10 @@
 import React from 'react'
 import {
   View,
+  KeyboardAvoidingView,
   StyleSheet,
   AsyncStorage,
+  Image,
 } from 'react-native'
 import {
   Button,
@@ -13,39 +15,46 @@ import {
 import commit from './loginAccount'
 
 export default class Login extends React.Component{
-  state = {
-    message: ""
-  }
   render(){
     return(
       <View style={{flex: 1}}>
-        <View style={{
+        <KeyboardAvoidingView style={{
           flex: 4,
           justifyContent: 'flex-end',
           alignItems: 'stretch',
           paddingHorizontal: 30,
         }}>
+          <Image
+            source={require('../../../logo.png')}
+            style={{ width: 100, height: 100, alignSelf: 'center', marginBottom: 30}}
+          />
           <Input
             inputContainerStyle={styles.inputContainer}
             inputStyle={styles.input}
             placeholder="Username or email"
             autoCapitalize="none"
-            onChangeText={(text) => this.setState({ email: text , username: text})}
+            errorMessage={this.state.usernameErrorMessage}
+            onChangeText={(text) => this.setState({
+              email: text,
+              username: text,
+              usernameErrorMessage:""
+            })}
           />
           <Input
             inputContainerStyle={styles.inputContainer}
             inputStyle={styles.input}
             placeholder="Password"
             secureTextEntry={true}
-            onChangeText={(text) => this.setState({ password: text })}
+            errorMessage={this.state.passwordErrorMessage}
+            onChangeText={(text) => this.setState({ password: text, passwordErrorMessage:"" })}
           />
           <Button
             containerStyle={styles.buttonContainer}
             title="Login"
-            onPress={()=>this.onPressButton()}
+            onPress={()=>this.isValid()}
           />
-        </View>
-        <Text>{this.state.message}</Text>
+          <View style={{ height: 30 }} />
+        </KeyboardAvoidingView>
         <View style={{
           flex: 2,
           flexDirection: 'row',
@@ -61,6 +70,27 @@ export default class Login extends React.Component{
       </View>
     )
   }
+
+  state={
+    usernameErrorMessage:"",
+    passwordErrorMessage:"",
+    username: "",
+    password: "",
+  }
+
+  isValid(){
+    if(this.state.username == "" && this.state.email == ""){
+      this.setState({usernameErrorMessage:"This field can't be empty"})
+    }
+    else if(this.state.password == ""){
+      this.setState({passwordErrorMessage:"This field can't be empty"})
+    }
+    else if(this.state.usernameErrorMessage == "" &&
+      this.state.passwordErrorMessage == ""){
+        this.onPressButton()
+    }
+  }
+
   onPressButton(){
     this.setState(()=>{
       if (this.state.email.indexOf('@') == -1){
@@ -75,7 +105,12 @@ export default class Login extends React.Component{
         this.state.password
       )
       if (token.indexOf('token') == -1){
-        this.setState({message: token})
+        if (token.indexOf('username') != -1){
+          this.setState({usernameErrorMessage: token})
+        }
+        else if (token.indexOf('Password') != -1){
+          this.setState({passwordErrorMessage: token})
+        }
       } else{
         global.token = token
         await AsyncStorage.setItem('token',token)
