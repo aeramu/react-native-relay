@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import {
-  TouchableOpacity,
-  Text,
   StyleSheet,
 } from 'react-native';
+import {
+  ListItem,
+  Text
+} from 'react-native-elements'
 import {graphql, createFragmentContainer} from 'react-relay'
 
 class Question extends Component {
   render() {
     return (
-      <TouchableOpacity style={styles.container} onPress={()=>this.onPress()}>
-        <Text>{this.props.question.author.username}</Text>
-        <Text>{this.props.question.title}</Text>
-      </TouchableOpacity>
+      <ListItem
+        onPress={()=>this.onPress()}
+        title={this.props.question.title}
+        subtitle={"asked by "+this.props.question.author.username}
+      />
     );
   }
 

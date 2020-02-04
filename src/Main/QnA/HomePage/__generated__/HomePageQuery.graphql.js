@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 5b4bd1d9a8b6fb1c240f9f2d2a0894dc
+ * @relayHash 23f1ce0c089ed0c7c939655de4377bc8
  */
 
 /* eslint-disable */
@@ -27,7 +27,7 @@ query HomePageQuery {
 }
 
 fragment QuestionList_questionList on Query {
-  questionList(first: 5) {
+  questionList(first: 10) {
     edges {
       node {
         ...Question_question
@@ -80,12 +80,12 @@ return {
         "kind": "LinkedField",
         "alias": null,
         "name": "questionList",
-        "storageKey": "questionList(first:5)",
+        "storageKey": "questionList(first:10)",
         "args": [
           {
             "kind": "Literal",
             "name": "first",
-            "value": 5
+            "value": 10
           }
         ],
         "concreteType": "QuestionConnection",
@@ -148,7 +148,7 @@ return {
     "operationKind": "query",
     "name": "HomePageQuery",
     "id": null,
-    "text": "query HomePageQuery {\n  ...QuestionList_questionList\n}\n\nfragment QuestionList_questionList on Query {\n  questionList(first: 5) {\n    edges {\n      node {\n        ...Question_question\n        id\n      }\n    }\n  }\n}\n\nfragment Question_question on Question {\n  id\n  title\n  author {\n    username\n    id\n  }\n}\n",
+    "text": "query HomePageQuery {\n  ...QuestionList_questionList\n}\n\nfragment QuestionList_questionList on Query {\n  questionList(first: 10) {\n    edges {\n      node {\n        ...Question_question\n        id\n      }\n    }\n  }\n}\n\nfragment Question_question on Question {\n  id\n  title\n  author {\n    username\n    id\n  }\n}\n",
     "metadata": {}
   }
 };

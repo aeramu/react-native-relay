@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
   FlatList,
   StyleSheet,
 } from 'react-native';
@@ -14,6 +13,7 @@ class QuestionList extends Component {
       <View style={styles.container}>
         <FlatList
           data={this.props.questionList.questionList.edges}
+          keyExtractor = {(item, index) => index.toString()}
           renderItem={({ item }) => <Question question={item.node} navigation={this.props.navigation}/>}
           onRefresh={()=>console.log("refresh")}
           refreshing={false}
@@ -28,7 +28,7 @@ export default createFragmentContainer(
   {
     questionList: graphql`
       fragment QuestionList_questionList on Query{
-        questionList(first:5){
+        questionList(first:10){
           edges{
             node{
               ...Question_question

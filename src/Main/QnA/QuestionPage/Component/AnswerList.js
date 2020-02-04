@@ -16,6 +16,7 @@ export default class AnswerList extends Component {
       <View style={styles.container}>
         <FlatList
           data={this.props.answerList}
+          keyExtractor={(item,index)=>index.toString()}
           renderItem={({ item }) => <Answer answer={item}/>}
         />
       </View>

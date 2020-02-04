@@ -43,6 +43,6 @@ export default class HomePage extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10
+    padding: 10
   },
 });
